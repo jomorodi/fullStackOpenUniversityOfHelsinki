@@ -8,6 +8,6 @@ sequenceDiagram
     deactivate server
 
    
-    Note right of browser: when the user submit the forms the form on submit event is triggered which prevent the default behaviour. it create a note object, append it to the dom node representing the list and send the new note to the server
+    Note right of browser: when the user submit the forms the form on submit event is triggered which prevent the default behaviour. it create a note object, append it to the dom node representing the list of notes which displays it and send the new note to the server
 
    
