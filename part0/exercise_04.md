@@ -2,10 +2,20 @@ sequenceDiagram
     participant browser
     participant server
 
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/new_note
+    
+    activate server
+    server-->>browser: HTML Redirect to the adress in the location header in the response
+    deactivate server
+
+    Note right of browser: The browser sends the payloads which consist of what was entered into the form 
+
     browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/notes
     activate server
     server-->>browser: HTML document
     deactivate server
+
+    Note right of browser:The Server creates a note object and append it to the notes array
 
     browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
     activate server
