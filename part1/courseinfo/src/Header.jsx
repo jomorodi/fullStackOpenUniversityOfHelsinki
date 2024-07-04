@@ -4,7 +4,7 @@ export default function Header ({course})
 {
 
 
-    return ( <div> {course} </div>) ;
+    return ( <div> {course.name} </div>) ;
 
 }
 
