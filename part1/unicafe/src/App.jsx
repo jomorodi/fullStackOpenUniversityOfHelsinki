@@ -15,13 +15,15 @@ return <button onClick= {onClick} >  {text} </button>
 
 }
 
-function Result ({choice, value , unit})
+
+
+function StatisticLine ({text , value, unit})
 
 {
-return <h1> {choice} {value} {unit} </h1>
+
+  return <tr><td> {text} </td><td> {value} {unit} </td></tr> 
 
 }
-
 function Statistics ({good , neutral , bad})
 {
   let total = good + neutral + bad ;
@@ -33,12 +35,16 @@ if (good != 0 || neutral !=0 || bad != 0)
 {
   return (
     <>
-    <Result choice={'good'} value={good} />
-    <Result choice={"neutral"} value={neutral} />
-    <Result choice={"bad"} value={bad} />
-    <Result choice={"all"} value={total} />
-    <Result choice={"average"} value={averageResult} />
-    <Result choice={"positive"} value={positive} unit={"%"}/> 
+    <table>
+    <tbody>
+    <StatisticLine text={'good'} value={good} />
+    <StatisticLine text={"neutral"} value={neutral} />
+    <StatisticLine text={"bad"} value={bad} />
+    <StatisticLine text={"all"} value={total} />
+    <StatisticLine text={"average"} value={averageResult} />
+    <StatisticLine text={"positive"} value={positive} unit={"%"}/>
+    </tbody>
+    </table>
     </>
     )
 
@@ -60,6 +66,7 @@ function App() {
 
   let header1 = "give feedback" ;
   let header2 = "statistics"
+  
 
 
   return (
