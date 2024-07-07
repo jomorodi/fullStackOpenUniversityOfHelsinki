@@ -29,14 +29,22 @@ function Statistics ({good , neutral , bad})
   let averageResult = total != 0 ? (good*1 + neutral*0 + bad *-1 ) / total : 0 ;
 
   let positive = total != 0 ? (good/ total) * 100 : 0;
+if (good != 0 || neutral !=0 || bad != 0)
+{
+  return (
+    <>
+    <Result choice={'good'} value={good} />
+    <Result choice={"neutral"} value={neutral} />
+    <Result choice={"bad"} value={bad} />
+    <Result choice={"all"} value={total} />
+    <Result choice={"average"} value={averageResult} />
+    <Result choice={"positive"} value={positive} unit={"%"}/> 
+    </>
+    )
 
-return (
-<>
- <Result choice={"all"} value={total} />
- <Result choice={"average"} value={averageResult} />
- <Result choice={"positive"} value={positive} unit={"%"}/> 
-</>
-)
+}
+else { return <h2>No feedback given</h2>}
+
 }
 
 
@@ -64,9 +72,7 @@ function App() {
       </div>
       <Header text={header2} />
       
-        <Result choice={'good'} value={good} />
-        <Result choice={"neutral"} value={neutral} />
-        <Result choice={"bad"} value={bad} />
+        
         <Statistics good={good} neutral={neutral} bad={bad} />
        
     </div>
