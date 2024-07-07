@@ -3,32 +3,53 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
+function Header ({text})
+{
+return <div> <h1> {text} </h1> </div>
+
+}
+
+function Button ({onClick , text})
+{
+return <button onClick= {onClick} >  {text} </button>
+
+}
+
+function Result ({choice, total})
+
+{
+return <h1> {choice} {total} </h1>
+
+}
+
+
 function App() {
-  const [count, setCount] = useState(0)
+  const [good, setGood] = useState(0)
+  const [neutral, setNeutral] = useState(0)
+  const [bad, setBad] = useState(0)
+
+  const handleGoodClick = () => setGood(good + 1) ;
+  const handleNeutralClick = () => setNeutral (neutral + 1) ;
+  const handleBadClick = () => setBad (bad + 1) ;
+
+  let header1 = "give feedback" ;
+  let header2 = "statistics"
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div>
+      <Header text={header1} />
+      <div> 
+        <Button onClick={handleGoodClick} text ={"good"} />
+        <Button onClick={handleNeutralClick} text = {"neutral"} />
+        <Button onClick={handleBadClick} text={"bad"} />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+      <Header text={header2} />
+      
+        <Result choice={'good'} total={good} />
+        <Result choice={"neutral"} total={neutral} />
+        <Result choice={"bad"} total={bad} />
+      
+    </div>
   )
 }
 
