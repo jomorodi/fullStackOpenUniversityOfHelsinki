@@ -22,6 +22,23 @@ return <h1> {choice} {value} {unit} </h1>
 
 }
 
+function Statistics ({good , neutral , bad})
+{
+  let total = good + neutral + bad ;
+
+  let averageResult = total != 0 ? (good*1 + neutral*0 + bad *-1 ) / total : 0 ;
+
+  let positive = total != 0 ? (good/ total) * 100 : 0;
+
+return (
+<>
+ <Result choice={"all"} value={total} />
+ <Result choice={"average"} value={averageResult} />
+ <Result choice={"positive"} value={positive} unit={"%"}/> 
+</>
+)
+}
+
 
 function App() {
   const [good, setGood] = useState(0)
@@ -35,11 +52,7 @@ function App() {
 
   let header1 = "give feedback" ;
   let header2 = "statistics"
-  let total = good + neutral + bad ;
 
-  let averageResult = (good*1 + neutral*0 + bad *-1 ) / total ;
-
-  let positive = (good/ total) * 100 ;
 
   return (
     <div>
@@ -54,10 +67,8 @@ function App() {
         <Result choice={'good'} value={good} />
         <Result choice={"neutral"} value={neutral} />
         <Result choice={"bad"} value={bad} />
-        <Result choice={"all"} value={total} />
-        <Result choice={"average"} value={averageResult} />
-        <Result choice={"positive"} value={positive} unit={"%"}/>
-      
+        <Statistics good={good} neutral={neutral} bad={bad} />
+       
     </div>
   )
 }
