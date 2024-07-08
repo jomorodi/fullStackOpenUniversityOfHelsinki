@@ -61,15 +61,7 @@ function getRandomIntInclusive(min, max) {
 
 
 function App() {
-  const [good, setGood] = useState(0)
-  const [neutral, setNeutral] = useState(0)
-  const [bad, setBad] = useState(0)
-  const [selected, setSelected] = useState(0)
 
-
-
-  let header1 = "give feedback" ;
-  let header2 = "statistics"
   const anecdotes = [
     'If it hurts, do it more often.',
     'Adding manpower to a late software project makes it later!',
@@ -81,10 +73,23 @@ function App() {
     'The only way to go fast, is to go well.'
   ]
 
+  const [good, setGood] = useState(0)
+  const [neutral, setNeutral] = useState(0)
+  const [bad, setBad] = useState(0)
+  const [selected, setSelected] = useState(0)
+  const [points , setPoints] = useState(Array(anecdotes.length).fill(0))
+  const [vote , setVote] = useState(0)
+
+
+
+  let header1 = "give feedback" ;
+  let header2 = "statistics"
+
   const handleGoodClick = () => setGood(good + 1) ;
   const handleNeutralClick = () => setNeutral (neutral + 1) ;
   const handleBadClick = () => setBad (bad + 1) ;
-  const handleAnecdoteClick = () => setSelected (getRandomIntInclusive(0, anecdotes.length))
+  const handleAnecdoteClick = () => setSelected (getRandomIntInclusive(0, anecdotes.length - 1))
+  const handleVoteClick = () => {let copy = [...points] ; copy[selected] += 1; setPoints(copy) ; }
 
 
   return (
@@ -92,6 +97,11 @@ function App() {
       <div>
       {anecdotes[selected]}
       </div>
+      <div> 
+      has {points[selected] === 0 ? "no" : points[selected] } vote{points[selected] >= 2 ? "s" : ""}
+      </div>
+      
+    <Button onClick={handleVoteClick} text={"vote"} />
     <Button onClick={handleAnecdoteClick} text={"next anecdote"} />
       <Header text={header1} />
       <div> 
