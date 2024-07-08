@@ -59,6 +59,56 @@ function getRandomIntInclusive(min, max) {
   return Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled); // The maximum is inclusive and the minimum is inclusive
 }
 
+function indexOfMax(arr) {
+  if (arr.length === 0) {
+      return -1;
+  }
+
+  let max = arr[0];
+  let maxIndex = 0;
+
+  for (let i = 1; i < arr.length; i++) {
+      if (arr[i] > max) {
+          maxIndex = i;
+          max = arr[i];
+      }
+  }
+
+  return maxIndex;
+}
+
+function MaxAnecdoteVoteDisplay ({anecdotes , maxArrayIndex, points})
+{
+
+  if (maxArrayIndex === -1 ) {
+
+    return (<div>There are no anecdotes</div>)
+
+  }
+
+  if (points[maxArrayIndex] === 0 )
+  {
+
+    return (<div>No vote has been cast yet hence no anectode with maximum vote</div>)
+
+  }
+
+  else
+  {
+    return (<>
+    <div>
+      {anecdotes[maxArrayIndex]}
+    </div>
+    <div>
+    has { points[maxArrayIndex]} vote{points[maxArrayIndex] >= 2 ? "s" : ""}
+    </div>
+    
+    </>)
+
+  }
+ 
+
+}
 
 function App() {
 
@@ -83,8 +133,8 @@ function App() {
 
 
   let header1 = "give feedback" ;
-  let header2 = "statistics"
-
+  let header2 = "statistics" ; 
+  let maxArrayIndex = indexOfMax (points) ;
   const handleGoodClick = () => setGood(good + 1) ;
   const handleNeutralClick = () => setNeutral (neutral + 1) ;
   const handleBadClick = () => setBad (bad + 1) ;
@@ -94,15 +144,19 @@ function App() {
 
   return (
     <div>
+      <Header text={"Anecdote of the Day"} />
       <div>
       {anecdotes[selected]}
       </div>
       <div> 
       has {points[selected] === 0 ? "no" : points[selected] } vote{points[selected] >= 2 ? "s" : ""}
       </div>
-      
-    <Button onClick={handleVoteClick} text={"vote"} />
-    <Button onClick={handleAnecdoteClick} text={"next anecdote"} />
+      <Button onClick={handleVoteClick} text={"vote"} />
+      <Button onClick={handleAnecdoteClick} text={"next anecdote"} />
+      <Header text={"Anecdote with the most vote "} />
+      <MaxAnecdoteVoteDisplay anecdotes={anecdotes} maxArrayIndex={maxArrayIndex} points={points}/>
+    
+    
       <Header text={header1} />
       <div> 
         <Button onClick={handleGoodClick} text ={"good"} />
