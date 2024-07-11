@@ -2,43 +2,8 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import Course from './Course'
 
-const Header = ({ course }) => <h1>{course}</h1>
-
-const Total = ({ sum }) => <p>Number of exercises {sum}</p>
-
-const Part = ({ part }) => 
-  
-  <p>
-    {part.name} {part.exercises}
-  </p> 
-
-const Content = ({ parts }) => 
-  <>
-  
-    {
-      parts.map((part) => <Part key={part.id} part={part} /> )
-
-    }
-       
-  </>
-
-const Course = ({course}) => 
-  {
-    const parts = course.parts ;
-    const initialValue = 0;
-    const total =   parts.reduce((s, p) => s + p.exercises , initialValue )
-    return (
-
-        <>
-        <Header course={course.name} />
-        <Content parts={course.parts} /> 
-        <Total sum={total} />          
-        </>       
-
-    )
-
-  }
 
 const App = () => {
 
