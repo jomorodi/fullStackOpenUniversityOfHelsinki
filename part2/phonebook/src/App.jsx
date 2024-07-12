@@ -13,10 +13,16 @@ const DisplayPersons = ({persons}) => {
 
 const App = () => {
   const [persons, setPersons] = useState([
-    { name: 'Arto Hellas', number: '040-1234567'}
+    { name: 'Arto Hellas', number: '040-123456', id: 1 },
+    { name: 'Ada Lovelace', number: '39-44-5323523', id: 2 },
+    { name: 'Dan Abramov', number: '12-43-234345', id: 3 },
+    { name: 'Mary Poppendieck', number: '39-23-6423122', id: 4 }
   ]) 
   const [newName, setNewName] = useState('') ;
   const [newNumber, setNewNumber] = useState('') ;
+  const [filterWord, setFilterWord] = useState('');
+  const [filteredPersonArray , setFilteredPersonArray] = useState([]) ;
+  
   const handleFormSubmit = (event) => {
     event.preventDefault() ;
     
@@ -35,12 +41,23 @@ const App = () => {
     } ;
   const handleNameInputChange = (event) => {setNewName(event.target.value)};
   const handleNumberInputChange = (event) => {setNewNumber(event.target.value)}
+  const handleSearchFilterChange = (event) => {
+    let word = event.target.value ;
+    setFilterWord(word);
+    
+    let arrayFiltered = persons.filter((person) => person.name.toLowerCase().includes(word.toLowerCase()) );
+    
+    setFilteredPersonArray (arrayFiltered);
+  }
 
   
 
   return (
     <div>
       <h2>Phonebook</h2>
+      <div>
+        filter shown with <input onChange={handleSearchFilterChange} value={filterWord}/>
+      </div>
       <form onSubmit={handleFormSubmit}>
         <div>
           name: <input onChange={handleNameInputChange} value={newName}/>
@@ -55,7 +72,7 @@ const App = () => {
         </div>
       </form>
       <h2>Numbers</h2>
-      <DisplayPersons persons={persons} />
+      { ! filterWord ? <DisplayPersons persons={persons} /> : <DisplayPersons persons={filteredPersonArray} />}
     </div>
   )
 }
