@@ -5,6 +5,7 @@ import './App.css'
 
 
 
+
 const DisplayPersons = ({persons}) => {
 
   return <ul>{ persons.map ((person) => <li key={person.name}> {person.name} </li>)}</ul>
@@ -17,8 +18,19 @@ const App = () => {
   const [newName, setNewName] = useState('') ;
   const handleFormSubmit = (event) => {
     event.preventDefault() ;
+    
+    if (! (persons.filter ((person) => person.name === newName ).length === 0) ) 
+    {
+      // checks if new name is on the list 
+      alert (`${newName} is already added to the phonebook`)
+
+    }
+    else
+    {
     setPersons (persons.concat({name: newName }));
-    setNewName("");} ;
+    setNewName("");
+    }
+    } ;
   const handleInputChange = (event) => {setNewName(event.target.value)};
 
   
