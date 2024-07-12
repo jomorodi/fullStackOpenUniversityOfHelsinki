@@ -2,6 +2,9 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import PersonForm from './PersonForm'
+import Filter from './Filter'
+import Persons from './Persons'
 
 
 
@@ -50,31 +53,26 @@ const App = () => {
     setFilteredPersonArray (arrayFiltered);
   }
 
-  
-
   return (
     <div>
       <h2>Phonebook</h2>
-      <div>
-        filter shown with <input onChange={handleSearchFilterChange} value={filterWord}/>
-      </div>
-      <form onSubmit={handleFormSubmit}>
-        <div>
-          name: <input onChange={handleNameInputChange} value={newName}/>
-          
-        </div>
-        <div>
-          number: <input onChange={handleNumberInputChange} value={newNumber} />
-          
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
-      <h2>Numbers</h2>
-      { ! filterWord ? <DisplayPersons persons={persons} /> : <DisplayPersons persons={filteredPersonArray} />}
+
+      <Filter handleSearchFilterChange={handleSearchFilterChange}  filterWord={filterWord} />
+
+      <h3>Add a new</h3>
+
+      <PersonForm 
+        handleFormSubmit = {handleFormSubmit}  handleNameInputChange = {handleNameInputChange}  
+        handleNumberInputChange = {handleNumberInputChange} newName = {newName} newNumber = {newNumber}
+      />
+
+      <h3>Numbers</h3>
+
+      <Persons persons ={persons} filterWord={filterWord}  filteredPersonArray = {filteredPersonArray} />
     </div>
-  )
+  ) 
+
+ 
 }
 
 export default App
