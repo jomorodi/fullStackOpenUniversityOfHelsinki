@@ -8,14 +8,15 @@ import './App.css'
 
 const DisplayPersons = ({persons}) => {
 
-  return <ul>{ persons.map ((person) => <li key={person.name}> {person.name} </li>)}</ul>
+  return <ul>{ persons.map ((person) => <li key={person.name}> {person.name} {person.number} </li>)}</ul>
 }
 
 const App = () => {
   const [persons, setPersons] = useState([
-    { name: 'Arto Hellas'}
+    { name: 'Arto Hellas', number: '040-1234567'}
   ]) 
   const [newName, setNewName] = useState('') ;
+  const [newNumber, setNewNumber] = useState('') ;
   const handleFormSubmit = (event) => {
     event.preventDefault() ;
     
@@ -27,11 +28,13 @@ const App = () => {
     }
     else
     {
-    setPersons (persons.concat({name: newName }));
+    setPersons (persons.concat({name: newName, number: newNumber }));
     setNewName("");
+    setNewNumber('');
     }
     } ;
-  const handleInputChange = (event) => {setNewName(event.target.value)};
+  const handleNameInputChange = (event) => {setNewName(event.target.value)};
+  const handleNumberInputChange = (event) => {setNewNumber(event.target.value)}
 
   
 
@@ -40,7 +43,12 @@ const App = () => {
       <h2>Phonebook</h2>
       <form onSubmit={handleFormSubmit}>
         <div>
-          name: <input onChange={handleInputChange} value={newName}/>
+          name: <input onChange={handleNameInputChange} value={newName}/>
+          
+        </div>
+        <div>
+          number: <input onChange={handleNumberInputChange} value={newNumber} />
+          
         </div>
         <div>
           <button type="submit">add</button>
