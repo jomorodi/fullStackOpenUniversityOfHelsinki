@@ -7,6 +7,4 @@ const DisplayPersons = ({persons}) => {
 
 
 
-
-
 export default DisplayPersons
