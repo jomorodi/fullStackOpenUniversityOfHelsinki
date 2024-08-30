@@ -3,7 +3,7 @@ import personContext from './personContext'
 import { useContext } from 'react'
 const DeletePersonButton = ({person}) => {  
 
-const {persons , setPersons} = useContext (personContext) ;
+const {persons , setPersons, setErrorMessage} = useContext (personContext) ;
 const handleOnClick = () => {
 
     
@@ -12,9 +12,12 @@ const handleOnClick = () => {
         let promise = personRequest.deletePerson (person.id)
               
         let personsCopy = persons.filter ((n) => person.id !== n.id );
+        
         delete persons.find(n => n.id === person.id) ;
         
         setPersons(personsCopy) ;
+        //setErrorMessage(`Information of ${person.name} has already been removed from server`);
+        setErrorMessage(`Deleted  ${person.name} `);
 }
       }
       
