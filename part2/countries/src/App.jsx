@@ -3,6 +3,8 @@ import './App.css'
 import Form from './components/Form'
 import CountryRequest from './service/CountryRequest'
 import DisplayCountries from './DisplayCountries'
+
+
 function App() {
   const [searchWord, setSearchWord] = useState('')
   const [countries, setCountries] = useState([])
@@ -19,6 +21,7 @@ function App() {
     <>
      <Form handleSubmit={handleSubmit} handleOnChange={handleOnChange} searchWord={searchWord}/>
      <DisplayCountries countries={countries} searchWord={searchWord} />
+          
     </>
   )
 }

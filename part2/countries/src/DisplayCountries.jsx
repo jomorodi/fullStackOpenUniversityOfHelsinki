@@ -1,8 +1,36 @@
-
+import { useState } from "react";
+import DisplayCountry from "./DisplayCountry";
+import ConditionalDisplayCountry from "./ConditionalDisplayCountry";
 const DisplayCountries = ({countries, searchWord}) => {
     
+    const [isShown, setIsShown] = useState(null)
 let filteredCountries = countries.filter((country) => { return country.name.common.toLowerCase().includes(searchWord.toLowerCase())});
+const handleButtonClick = (index, filteredArrlength) => {
+    // just flip the only boolean value of the index for which the button was cliked
+    if (!isShown)
+    {
+        // the first time initialize the showState boolean array
+        let showStateArray = [];
+        //initializing the array to
+        for (let i =0; i < filteredArrlength; i++) showStateArray.push(false);
+        setIsShown(showStateArray);
+    }else
+    {
+    if (isShown[index]){
+        setIsShown(isShown.map((elem ,i) =>{
+            if (index === i ) return false
+            else return isShown[i]
+        }))
+    }
+    else{
+        setIsShown(isShown.map((elem ,i) =>{
+            if (index === i ) return true
+            else return isShown[i]
+        }))
 
+    }
+}
+}
 if (filteredCountries.length == 0 && searchWord.length > 0)
 {
     return <div>no country match the curent filter</div>
@@ -13,30 +41,18 @@ if (filteredCountries.length > 10 && searchWord.length > 0)
 }
 if (filteredCountries.length>1 && filteredCountries.length <= 10 && searchWord.length > 0)
 {
-    
-    return <ul style={{listStyleType:'none', margin:0, padding:0}}>{filteredCountries.map((country) => { return <li>{country.name.common}</li>;})}</ul>
+   
+    return <ul style={{listStyleType:'none', margin:0, padding:0}}>
+        {filteredCountries.map((country, index) => { 
+            return (<li>
+                {country.name.common} 
+                <button onClick={() => handleButtonClick(index , filteredCountries.length)}>show</button>
+                <ConditionalDisplayCountry country={filteredCountries[index]} show={isShown? isShown[index]: false} />
+                </li>);})}</ul>
 }
 if (filteredCountries.length === 1 && searchWord.length > 0)
 {
-    
-    console.log (filteredCountries[0])
-    return <>
-    <h2>{filteredCountries[0].name.common}</h2>
-    <div>
-    <p>capital {filteredCountries[0].capital} 
-    <br/>
-    area {filteredCountries[0].area} 
-    </p>
-    
-    </div>
-    <div>
-        <h3>Languages: </h3>
-       <ul> { Object.entries(filteredCountries[0].languages).map(([keys, value]) => {return <li>{value}</li> ;})} </ul>
-       <img
-  src={filteredCountries[0].flags.png}
-  alt="Grapefruit slice atop a pile of other slices" />
-    </div>
-    </>
+    return <DisplayCountry country={filteredCountries[0]} />
 }
 }
 
