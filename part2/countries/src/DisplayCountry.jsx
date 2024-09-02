@@ -1,5 +1,6 @@
 
 import Weather from "./Weather";
+import { v4 as uuidv4 } from 'uuid';
 
 const DisplayCountry = ({country}) => {
 return (<>
@@ -13,7 +14,7 @@ area {country.area}
 </div>
 <div>
 <h3>Languages: </h3>
-       <ul> { Object.entries(country.languages).map(([keys, value]) => {return <li>{value}</li> ;})} </ul>
+       <ul> { Object.entries(country.languages).map(([keys, value]) => {return <li key={uuidv4()}>{value}</li> ;})} </ul>
        <img
   src={country.flags.png}
   alt={`${country.name.common} flag`} />

@@ -1,6 +1,8 @@
 import { useState } from "react";
 import DisplayCountry from "./DisplayCountry";
 import ConditionalDisplayCountry from "./ConditionalDisplayCountry";
+import { v4 as uuidv4 } from 'uuid';
+
 const DisplayCountries = ({countries, searchWord}) => {
     
     const [isShown, setIsShown] = useState(null)
@@ -44,7 +46,7 @@ if (filteredCountries.length>1 && filteredCountries.length <= 10 && searchWord.l
    
     return <ul style={{listStyleType:'none', margin:0, padding:0}}>
         {filteredCountries.map((country, index) => { 
-            return (<li>
+            return (<li  key={uuidv4()}>
                 {country.name.common} 
                 <button onClick={() => handleButtonClick(index , filteredCountries.length)}>show</button>
                 <ConditionalDisplayCountry country={filteredCountries[index]} show={isShown? isShown[index]: false} />
