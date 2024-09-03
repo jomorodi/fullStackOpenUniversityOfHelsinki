@@ -6,7 +6,21 @@ import { v4 as uuidv4 } from 'uuid';
 const DisplayCountries = ({countries, searchWord}) => {
     
     const [isShown, setIsShown] = useState(null)
-let filteredCountries = countries.filter((country) => { return country.name.common.toLowerCase().includes(searchWord.toLowerCase())});
+
+let filteredCountries = [] ;
+if (searchWord.length > 0)
+{
+    // checking if the search world exactly match a country and the set filtered countries to that
+let filtered = countries.filter((country) => { return country.name.common.toLowerCase() === searchWord.toLowerCase() })
+    if (filtered.length === 1)
+    {
+        filteredCountries = filtered;
+    }
+    else
+    {
+        filteredCountries = countries.filter((country) => { return country.name.common.toLowerCase().includes(searchWord.toLowerCase())});
+    }
+}
 const handleButtonClick = (index, filteredArrlength) => {
     // just flip the only boolean value of the index for which the button was cliked
     if (!isShown)

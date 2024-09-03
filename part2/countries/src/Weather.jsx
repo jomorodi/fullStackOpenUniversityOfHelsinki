@@ -9,7 +9,7 @@ const Weather = ({cityName}) => {
         let geoPromise = WeatherRequest.getGeoCode(cityName);
     
         geoPromise.then ((response) => {
-            console.log(response, "geocodeResponse"); return response}).then(
+            return response}).then(
                 (response) => {
                     return WeatherRequest.getWeather(response.lat, response.lon);
                 }
