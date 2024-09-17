@@ -1,7 +1,14 @@
 const express = require ("express")
+const morgan = require('morgan')
 const app = express()
 app.use(express.json()) // using midleware that parses request json body into js object
 
+morgan.token('body', function (req, res) { 
+  if (req.method === 'POST' || req.method === 'PUT' || req.method === 'PATCH')
+  {return JSON.stringify(req.body)}
+  else {return ''}
+   })
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'))
 let persons = [
     { 
       "id": "1",
@@ -71,7 +78,7 @@ const generateId = () => {
 
 app.post('/api/persons', (request, response) => {
   const body = request.body
-  console.log(request)
+  
   if (!body.name || !body.number) {
     return response.status(400).json({ 
       error: 'name or number is  missing' 
